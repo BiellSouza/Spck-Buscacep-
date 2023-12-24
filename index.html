@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <title>Buscar cep</title>
+  </head>
+  <header>
+    <h2>Pesquise seu cep aqui:</h2>
+  </header>
+
+
+  <!--Estilizando a pag-->
+
+<style>
+  body{
+    text-align: center ;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: blanchedalmond;
+  }
+</style>
+
+<body>
+  <form action="">
+    <label for="cep">Cep</label><br>
+    <input type="text" id="cep"><br>
+    
+    <label for="cep">Bairro</label><br>
+    <input type="text" id="bairro"><br>
+    
+    <label for="ddd">DDD</label><br>
+    <input type="text" id="ddd"><br>
+    
+    <label for="ibge">Ibge</label><br>
+    <input type="text" id="ibge"><br>
+    
+    <label for="localidade">Localidade</label><br>
+    <input type="text" id="localidade"><br>
+    
+    <label for="logradouro">Logradouro</label><br>
+    <input type="text" id="logradouro"><br>
+    
+    <label for="uf">UF</label><br>
+    <input type="text" id="uf"><br>
+    
+    <label for="siafi">Siafi</label><br>
+    <input type="text" id="siafi"><br>
+    
+    
+    <input type="button" onclick="enviar()" value="Enviar">
+  </form>
+  
+  
+
+  <script>
+    const cep = document.getElementById("cep");
+    cep.addEventListener("blur", (e) => {
+      let Cep = document.getElementById("cep").value;
+      let search = cep.value.replace("-","")
+      
+      fetch(`https://viacep.com.br/ws/${search}/json/`).then((response)=>{
+        response.json().then(data =>{
+          console.log(data)
+          document.getElementById("bairro"). value= data.bairro;
+          document.getElementById("ddd"). value= data.ddd;
+          document.getElementById("ibge"). value= data.ibge;
+          document.getElementById("localidade"). value= data.localidade;
+          document.getElementById("logradouro"). value= data.logradouro;
+          document.getElementById("uf"). value= data.uf;
+          document.getElementById("siafi"). value= data.siafi;
+          
+          
+        })
+      })
+    })
+    
+    function enviar (){
+      
+      let bairro = document.getElementById("bairro").value;
+      let ddd = document.getElementById("ddd").value;
+      let ibge = document.getElementById("ibge").value;
+      let localidade = document.getElementById("localidade").value;
+      let logradouro = document.getElementById("logradouro").value;
+      let uf = document.getElementById("uf").value;
+      let siafi = document.getElementById("siafi").value;
+      
+      let json = {
+        "bairro": bairro,
+        "ddd": ddd,
+        "ibge": ibge,
+        "localidade": localidade,
+        "logradouro": logradouro,
+        "uf": uf,
+        "siafi": siafi
+        
+      }
+      console.log(json)
+    };
+    
+  </script>
+</body>
+<footer>
+  
+    <p>Criado por Biell</p>
+    <p>Projeto básico de Buscar Cep com HTML-CSS-JAVASCRIPT</p>
+    
+</footer>
+
+</html>
